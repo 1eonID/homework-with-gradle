@@ -3,11 +3,11 @@ package exersice;
 import exersice.logger.InitOrderLogger;
 
 public class TopLevelClass extends ParentClass {
-  private InitOrderLogger l1 = InitOrderLogger.logAndGetInstance(15);
+  private InitOrderLogger l1 = InitOrderLogger.logAndGetInstance(13);
   private static InitOrderLogger l2 = InitOrderLogger.logAndGetInstance(5);
 
   {
-    InitOrderLogger.logAndGetInstance(12);
+    InitOrderLogger.logAndGetInstance(14);
   }
 
   static {
@@ -15,6 +15,6 @@ public class TopLevelClass extends ParentClass {
   }
 
   public TopLevelClass() {
-    InitOrderLogger.logAndGetInstance(9);
+    InitOrderLogger.logAndGetInstance(15);
   }
 }

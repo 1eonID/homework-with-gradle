@@ -3,11 +3,11 @@ package exersice;
 import exersice.logger.InitOrderLogger;
 
 public class GrandParentClass {
-  private InitOrderLogger l1 = InitOrderLogger.logAndGetInstance(13);
+  private InitOrderLogger l1 = InitOrderLogger.logAndGetInstance(7);
   private static InitOrderLogger l2 = InitOrderLogger.logAndGetInstance(1);
 
   {
-    InitOrderLogger.logAndGetInstance(10);
+    InitOrderLogger.logAndGetInstance(8);
   }
 
   static {
@@ -15,6 +15,6 @@ public class GrandParentClass {
   }
 
   public GrandParentClass() {
-    InitOrderLogger.logAndGetInstance(7);
+    InitOrderLogger.logAndGetInstance(9);
   }
 }
