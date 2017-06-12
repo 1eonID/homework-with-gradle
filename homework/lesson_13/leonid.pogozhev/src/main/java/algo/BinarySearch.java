@@ -7,7 +7,6 @@ public abstract class BinarySearch {
     Object[] sorted = sort(unsorted);
     index = binarySearch(sorted, toFind);
     return index;
-
   }
 
   protected abstract Object[] sort(Object[] unsorted);
@@ -28,12 +27,13 @@ public abstract class BinarySearch {
 
       int cmp = midVal.compareTo(key);
 
-      if (cmp < 0)
+      if (cmp < 0) {
         low = mid + 1;
-      else if (cmp > 0)
+      } else if (cmp > 0) {
         high = mid - 1;
-      else
+      } else {
         return mid; // key found
+      }
     }
     return -(low + 1);  // key not found.
   }
