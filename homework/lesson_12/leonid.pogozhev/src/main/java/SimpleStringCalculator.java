@@ -1,12 +1,11 @@
 public class SimpleStringCalculator {
   public int add(String expression) {
     int sum = 0;
-    if (expression == null || expression.equals("") || expression.equals(" ")) {
+    if (expression == null || expression.trim().isEmpty()) {
       return 0;
     }
     for (int i = 0; i < expression.length(); i++) {
       char ch = expression.charAt(i);
-      String charTemp = Character.toString(ch);
       // Строка позволяет работать с числами больше 9
       String operand = "";
       if (Character.isDigit(ch)) {
@@ -22,7 +21,7 @@ public class SimpleStringCalculator {
         if (numoper <= 1000) {
           sum += numoper;
         }
-      } else if ((charTemp.equals("-")) && Character.isDigit(expression.charAt(i + 1))) {
+      } else if ((ch == '-') && Character.isDigit(expression.charAt(i + 1))) {
         return -1;
       }
     }

@@ -3,7 +3,7 @@ package firm.stuff;
 import firm.Employee;
 
 public class HourlyRateEmployee extends Employee {
-  private String name;
+  // private String name;
   private float hourlyRate;
   private float workHours;
 
