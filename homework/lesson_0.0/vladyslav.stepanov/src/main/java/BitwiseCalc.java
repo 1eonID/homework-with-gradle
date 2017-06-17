@@ -1,30 +1,21 @@
 public class BitwiseCalc {
 
-  private static String addPaddingsTo(String input, int expectedLength) {
-    return String.format("%" + expectedLength + "s", input);
-  }
-
   public static String and(String binaryLeft, String binaryRight) {
-    if (binaryLeft.length() > binaryRight.length()) {
-      binaryRight = addPaddingsTo(binaryRight, binaryLeft.length());
-    } else {
-      binaryLeft = addPaddingsTo(binaryLeft, binaryRight.length());
-    }
-
     String res = "";
-    for (int i = 0; i < binaryLeft.length(); i++) {
+    for (int i = 0; i < binaryLeft.length(); i++ ) {
       if (binaryLeft.charAt(i) == '1' && binaryRight.charAt(i) == '1') {
-        res += "1";
+        res = res + "1";
       } else {
-        res += "0";
+        res = res + "0";
       }
     }
     return res;
   }
 
+
   public static String or(String binaryLeft, String binaryRight) {
     String res = "";
-    for (int i = 0; i < binaryLeft.length(); i++) {
+    for (int i = 0; i < binaryLeft.length() ;i++ ) {
       if (binaryLeft.charAt(i) == '1' || binaryRight.charAt(i) == '1') {
         res += "1";
       } else {
@@ -36,8 +27,9 @@ public class BitwiseCalc {
 
   public static String xor(String binaryLeft, String binaryRight) {
     String res = "";
-    for (int i = 0; i < binaryLeft.length(); i++) {
-      if (binaryLeft.charAt(i) == '1' ^ binaryRight.charAt(i) == '1') {
+    for (int i = 0; i < binaryLeft.length() ;i++ ) {
+      if (binaryLeft.charAt(i) == '1' && binaryRight.charAt(i) != '1'
+          || (binaryLeft.charAt(i) != '1' && binaryRight.charAt(i) == '1') ) {
         res += "1";
       } else {
         res += "0";
@@ -46,10 +38,10 @@ public class BitwiseCalc {
     return res;
   }
 
-  public static String not(String binary) {
+  public static String not(String binaryLeft) {
     String res = "";
-    for (int i = 0; i < binary.length(); i++) {
-      if (binary.charAt(i) == '1') {
+    for (int i = 0; i < binaryLeft.length() ;i++ ) {
+      if (binaryLeft.charAt(i) == '1') {
         res += "0";
       } else {
         res += "1";
