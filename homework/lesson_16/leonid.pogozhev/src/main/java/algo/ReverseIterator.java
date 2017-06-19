@@ -1,6 +1,9 @@
 package algo;
 
-public interface ReverseIterator<Item> {
+public interface ReverseIterator<U> {
+
   boolean hasPrevious();
-  Item previous();
+
+  U previous();
+
 }

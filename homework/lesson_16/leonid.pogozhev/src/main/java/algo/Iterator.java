@@ -1,6 +1,9 @@
 package algo;
 
-public interface Iterator<Item> {
+public interface Iterator<U> {
+
   boolean hasNext();
-  Item next();
+
+  U next();
+
 }
