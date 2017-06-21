@@ -15,9 +15,9 @@ public class LinkedList<U> implements List<U> {
   }
 
   private class Node {
-    private U item; //U
+    private U item;
     private  Node next;
-    private Node previous; //prev
+    private Node previous;
   }
 
   @Override
@@ -34,12 +34,38 @@ public class LinkedList<U> implements List<U> {
 
   @Override
   public U get(int index) {
-    return null;
+    Node current = first.next;
+    if (index < 0 || index > size()) {
+      System.out.println("Index out of bounds. No node exists at the specified index");
+    }
+    if (size() == 0) {
+      System.out.println("Empty list");
+    }
+    if (!isEmpty()) {
+      for (int i = 0; i < index; i++) {
+        current = current.next;
+      }
+    }
+    return current.item;
   }
 
   @Override
   public void remove(int index) {
-
+    if (index < 0 || index > size()) {
+      System.out.println("Index out of bounds. No node exists at the specified index");
+    }
+    if (size() == 0) {
+      System.out.println("Empty list");
+    }
+    if (!isEmpty()) {
+      Node current = first.next;
+      for (int i = 0; i < index; i++) {
+        current = current.next;
+      }
+      current.previous.next = current.next;
+      current.next.previous = current.previous;
+      size--;
+    }
   }
 
   @Override
@@ -59,47 +85,37 @@ public class LinkedList<U> implements List<U> {
 
   @Override
   public Iterator<U> iterator() {
-    return new ListIterator();
+    return new ListIterator<>();
   }
 
   @Override
   public ReverseIterator<U> reverseIterator() {
-    return new ReverseListIterator();
+    return new ReverseListIterator<>();
   }
 
-  // your code here
-
-  private class ListIterator<U> implements Iterator<U> {
+  private class ListIterator<T> implements Iterator<U> {
     private Node current = first.next;
-    private Node lastAccessed = null;
-
-    private int index = 0;
 
     public boolean hasNext() {
-      return (index < size);
+      return (current.next != null);
     }
 
     public U next() {
       if (!hasNext()) {
         throw new NoSuchElementException();
       }
-      lastAccessed = current;
-      U item = (U) current.item;
+      U item = current.item;
       current = current.next;
-      index++;
       return item;
     }
 
   }
 
-  private class ReverseListIterator<U> implements ReverseIterator<U> {
-    private Node current = first.next;
-    private Node lastAccessed = null;
-
-    private int index = 0;
+  private class ReverseListIterator<T> implements ReverseIterator<U> {
+    private Node current = last.previous;
 
     public boolean hasPrevious() {
-      return (index > 0);
+      return (current.previous != null);
     }
 
     public U previous() {
@@ -107,9 +123,7 @@ public class LinkedList<U> implements List<U> {
         throw new NoSuchElementException();
       }
       current = current.previous;
-      index--;
-      lastAccessed = current;
-      return (U) current.item;
+      return current.next.item;
     }
   }
 }
