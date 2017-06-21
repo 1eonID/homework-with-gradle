@@ -7,13 +7,6 @@ public class LinkedList<U> implements List<U> {
   private Node first;
   private Node last;
 
-  public LinkedList() {
-    first = new Node();
-    last = new Node();
-    first.next = last;
-    last.previous = first;
-  }
-
   private class Node {
     private U item;
     private  Node next;
@@ -22,6 +15,12 @@ public class LinkedList<U> implements List<U> {
 
   @Override
   public void add(U item) {
+    if (isEmpty()) {
+      first = new Node();
+      last = new Node();
+      first.next = last;
+      last.previous = first;
+    }
     Node prev = last.previous;
     Node tmp = new Node();
     tmp.item = item;
@@ -38,13 +37,12 @@ public class LinkedList<U> implements List<U> {
     if (index < 0 || index > size()) {
       System.out.println("Index out of bounds. No node exists at the specified index");
     }
-    if (size() == 0) {
-      System.out.println("Empty list");
-    }
     if (!isEmpty()) {
       for (int i = 0; i < index; i++) {
         current = current.next;
       }
+    } else {
+      System.out.println("Empty list");
     }
     return current.item;
   }
@@ -54,9 +52,6 @@ public class LinkedList<U> implements List<U> {
     if (index < 0 || index > size()) {
       System.out.println("Index out of bounds. No node exists at the specified index");
     }
-    if (size() == 0) {
-      System.out.println("Empty list");
-    }
     if (!isEmpty()) {
       Node current = first.next;
       for (int i = 0; i < index; i++) {
@@ -65,6 +60,8 @@ public class LinkedList<U> implements List<U> {
       current.previous.next = current.next;
       current.next.previous = current.previous;
       size--;
+    } else {
+      System.out.println("Empty list");
     }
   }
 
