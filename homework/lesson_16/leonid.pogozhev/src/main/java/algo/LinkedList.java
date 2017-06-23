@@ -16,29 +16,32 @@ public class LinkedList<U> implements List<U> {
   @Override
   public void add(U item) {
     if (isEmpty()) {
-      first = new Node();
-      last = new Node();
-      first.next = last;
-      last.previous = first;
+      Node tmp = new Node();
+      tmp.item = item;
+      first = tmp;
+      last = tmp;
     }
-    Node prev = last.previous;
-    Node tmp = new Node();
-    tmp.item = item;
-    tmp.next = last;
-    tmp.previous = prev;
+    // Node prev = last.previous;
+    // tmp.next = last;
+    // tmp.previous = prev;
+    // last.previous = tmp;
+    // prev.next = tmp;
+    Node tmp = last;
+    last = new Node();
+    last.item = item;
     last.previous = tmp;
-    prev.next = tmp;
+    tmp.next = last;
     size++;
   }
 
   @Override
   public U get(int index) {
-    Node current = first.next;
+    Node current = first;
     if (index < 0 || index > size()) {
       System.out.println("Index out of bounds. No node exists at the specified index");
     }
     if (!isEmpty()) {
-      for (int i = 0; i < index; i++) {
+      for (int i = 0; i < index + 1; i++) {
         current = current.next;
       }
     } else {
@@ -53,12 +56,18 @@ public class LinkedList<U> implements List<U> {
       System.out.println("Index out of bounds. No node exists at the specified index");
     }
     if (!isEmpty()) {
-      Node current = first.next;
-      for (int i = 0; i < index; i++) {
-        current = current.next;
+      Node current = first;
+      if (index == 0) {
+        first = first.next;
+      } else if (index == size - 1) {
+        last = last.previous;
+      } else {
+        for (int i = 0; i < index + 1; i++) {
+          current = current.next;
+        }
+        current.previous.next = current.next;
+        current.next.previous = current.previous;
       }
-      current.previous.next = current.next;
-      current.next.previous = current.previous;
       size--;
     } else {
       System.out.println("Empty list");
@@ -91,7 +100,7 @@ public class LinkedList<U> implements List<U> {
   }
 
   private class ListIterator<T> implements Iterator<U> {
-    private Node current = first.next;
+    private Node current = first;
 
     public boolean hasNext() {
       return (current.next != null);
@@ -101,15 +110,15 @@ public class LinkedList<U> implements List<U> {
       if (!hasNext()) {
         throw new NoSuchElementException();
       }
-      U item = current.item;
       current = current.next;
+      U item = current.item;
       return item;
     }
 
   }
 
   private class ReverseListIterator<T> implements ReverseIterator<U> {
-    private Node current = last.previous;
+    private Node current = last;
 
     public boolean hasPrevious() {
       return (current.previous != null);
