@@ -21,11 +21,6 @@ public class LinkedList<U> implements List<U> {
       first = tmp;
       last = tmp;
     }
-    // Node prev = last.previous;
-    // tmp.next = last;
-    // tmp.previous = prev;
-    // last.previous = tmp;
-    // prev.next = tmp;
     Node tmp = last;
     last = new Node();
     last.item = item;
