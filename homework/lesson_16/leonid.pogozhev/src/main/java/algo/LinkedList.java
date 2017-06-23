@@ -86,6 +86,8 @@ public class LinkedList<U> implements List<U> {
 
   @Override
   public void clear() {
+    first = null;
+    last = null;
     size = 0;
   }
 
