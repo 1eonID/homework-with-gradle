@@ -111,7 +111,6 @@ public class LinkedList<U> implements List<U> {
       U item = current.item;
       return item;
     }
-
   }
 
   private class ReverseListIterator<T> implements ReverseIterator<U> {
