@@ -2,7 +2,7 @@ package algo.queue;
 
 import java.util.NoSuchElementException;
 
-public class AlterQueue<T> {
+public class AlterQueue<T> implements Queue<T> {
   private Object[] elements = new Object[10];
   private int putIndex;
   private int firstElemIndex;
