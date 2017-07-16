@@ -6,7 +6,7 @@ import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import algo.PriorityQueue;
-import algo.PQSorter;
+import algo.PriorityQueueSorter;
 
 import java.util.Arrays;
 
@@ -30,7 +30,7 @@ public class AcceptanceTest {
 
   @Test
   public void priorityQueueSortTestAscendingOrder() {
-    PQSorter sorter = new PQSorter(PQSorter.Order.ASCENDING);
+    PriorityQueueSorter sorter = new PriorityQueueSorter(PriorityQueueSorter.Order.ASCENDING);
     String[] unsorted = {"I", "like", "Java", "but", "sometimes", "I", "feel", "like", "Java", "doesn't", "like", "me"};
 
     assertThat(sorter.<String>sort(unsorted),
@@ -39,7 +39,7 @@ public class AcceptanceTest {
 
   @Test
   public void priorityQueueSortTestDescendingOrder() {
-    PQSorter sorter = new PQSorter(PQSorter.Order.DESCENDING);
+    PriorityQueueSorter sorter = new PriorityQueueSorter(PriorityQueueSorter.Order.DESCENDING);
     String[] unsorted = {"I", "like", "Java", "but", "sometimes", "I", "feel", "like", "Java", "doesn't", "like", "me"};
 
     assertThat(sorter.<String>sort(unsorted),
