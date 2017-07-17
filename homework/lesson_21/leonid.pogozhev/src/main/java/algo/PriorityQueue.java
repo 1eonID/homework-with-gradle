@@ -1,22 +1,25 @@
 package algo;
 
+import java.lang.Iterable;
+
 import java.util.Arrays;
 
 import java.util.Comparator;
 
-import static algo.PQSorter.Order.*;
+import java.util.Iterator;
 
-public class PriorityQueue<T extends Comparable> {
+import java.util.NoSuchElementException;
+
+public class PriorityQueue<T> implements Iterable<T> {
   private Object[] elements = new Object[16];
   private int size;
-  Comparator<T> comparator;
+  private Comparator<T> comparator;
 
   public PriorityQueue() {
-    
-  };
+  }
 
   @SuppressWarnings("unchecked")
-  public PriorityQueue(Comparator comparator) {
+  PriorityQueue(Comparator comparator) {
     this.comparator = comparator;
   }
 
@@ -29,64 +32,77 @@ public class PriorityQueue<T extends Comparable> {
     bubbleUp(size);
   }
 
-  private void bubbleUp(int k) {
-    while(k > 1 && compare(k / 2 , k)) {
-      swap(k, k / 2);
-      k = k / 2;
+  private void bubbleUp(int current) {
+    while (current > 1 && greaterThan(current / 2 , current)) {
+      swap(current, current / 2);
+      current = current / 2;
     }
   }
 
   @SuppressWarnings("unchecked")
-  private boolean compare(int n, int m) {
-    if (comparator == (T) ASCENDING) {
-      return (comparator.compare((T) elements[n], (T) elements[m])) > 0;
-    } else if (comparator == (T) DESCENDING) {
-      return (comparator.compare((T) elements[n], (T) elements[m])) < 1;
+  private boolean greaterThan(int o1, int o2) {
+    if (comparator == null) {
+      return ((Comparable) elements[o1]).compareTo(elements[o2]) > 0;
+    } else {
+      return (comparator.compare((T) elements[o1], (T) elements[o2])) > 0;
     }
-    return ((Comparable) elements[n]).compareTo(elements[m]) > 0;
   }
 
   @SuppressWarnings("unchecked")
-  private void swap(int n, int m) {
-    T t = (T) elements[n];
-    elements[n] = elements[m];
-    elements[m] = t;
+  private void swap(int o1, int o2) {
+    T tmp = (T) elements[o1];
+    elements[o1] = elements[o2];
+    elements[o2] = tmp;
   }
 
   @SuppressWarnings("unchecked")
   public T min() {
-    T value = (T) elements[1];
-
+    final T value = (T) elements[1];
     swap(1, size);
     elements[size] = null;
     size--;
-
     sinkDown(1);
 
     return value;
   }
 
-  @SuppressWarnings("unchecked")
-  public void sinkDown(int k){
-    T value = (T) elements[k];
-    int smallest = k;
-    int leftChild = k * 2;
-    int rightChild = (k * 2) + 1;
+  private void sinkDown(int current) {
+    while (current * 2 <= size) {
+      int childK = current * 2;
+      if (childK < size && greaterThan(childK, childK + 1)) {
+        childK++;
+      }
 
-    if(leftChild <= size && compare(k, leftChild)){
-      smallest = leftChild;
-    }
-    if(rightChild <= size && compare(k, rightChild)){
-      smallest = k * 2 + 1;
-    }
-    if(smallest != k){
-      swap(k, smallest);
-      sinkDown(smallest);
-    }
+      if (!greaterThan(current, childK)) {
+        break;
+      }
 
+      swap(current, childK);
+      current = childK;
+    }
   }
 
   private boolean isCapable() {
     return elements.length != size;
+  }
+
+  public int size() {
+    return size;
+  }
+
+  public Iterator<T> iterator() {
+    return new Iterator<T>() {
+
+      public boolean hasNext() {
+        return (size != 0);
+      }
+
+      public T next() {
+        if (!hasNext()) {
+          throw new NoSuchElementException();
+        }
+        return min();
+      }
+    };
   }
 }
