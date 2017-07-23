@@ -5,8 +5,7 @@ import org.junit.Ignore;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.*;
 
-import algo.PriorityQueue;
-import algo.PriorityQueueSorter;
+import algo.BSTMap;
 import java.util.Iterator;
 
 import java.util.Arrays;
